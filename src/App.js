@@ -4,6 +4,12 @@ import './App.scss';
 import ColorItem from './components/ColorItem';
 
 const App = () => {
+  const [show, setShow] = useState(false);
+
+  const toggleHandler = () => {
+    setShow((prevShow) => !prevShow);
+  };
+
   const colors = [
     'pink',
     '#000000',
@@ -14,25 +20,19 @@ const App = () => {
     'coral',
   ];
 
-  const [show, setShow] = useState(false);
-
   useEffect(() => {
     const currentColor = localStorage.getItem('color');
     setTheme(currentColor);
   }, []);
 
-  const toggleHandler = () => {
-    setShow((prevShow) => !prevShow);
-  };
-
-  const setTheme = (color) => {
-    document.documentElement.style.setProperty('--bg-color', color);
-  };
-
   const setColor = (e) => {
     const currentColor = e.target.style.getPropertyValue('--bg-color');
     setTheme(currentColor);
     localStorage.setItem('color', currentColor);
+  };
+
+  const setTheme = (color) => {
+    document.documentElement.style.setProperty('--bg-color', color);
   };
 
   return (
